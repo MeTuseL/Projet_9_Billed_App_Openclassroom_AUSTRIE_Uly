@@ -24,6 +24,12 @@ export const modal = () => (`
 export default (bill) => {
     //for bill.commentAdmin and bill.filename : 
     //replacement of the default a field named "null" or empty with a writing comprehensible to the user 
+    if(bill.fileName === "null"){
+      bill.fileName = "Fichier introuvable."
+    }
+    if(bill.commentAdmin === null || bill.commentAdmin.length === 0){
+      bill.commentAdmin = "Aucun commentaire."
+    }
   return (`
     <div class="container dashboard-form" data-testid="dashboard-form">
       <div class="row">
@@ -69,7 +75,7 @@ export default (bill) => {
         <div class="col-sm">
           <label for="file" class="bold-label">Justificatif</label>
             <div class='input-field input-flex file-flex'>
-            <span id="file-name-admin">${bill.fileName === "null" || " " ? "Fichier introuvable." : bill.fileName}</span>
+            <span id="file-name-admin">${bill.fileName}</span>
             <div class='icons-container'>
               <span id="icon-eye-d" data-testid="icon-eye-d" data-bill-url="${bill.fileUrl}"> ${eyeWhite} </span>
             </div>
@@ -85,7 +91,7 @@ export default (bill) => {
        `) : (`
         <div class="col-sm">
           <label for="commentary-admin" class="bold-label">Votre commentaire</label>
-          <div class='input-field'> ${bill.commentAdmin === null || " " ? 'Aucun commentaire.' : bill.commentAdmin} </div>
+          <div class='input-field'> ${bill.commentAdmin} </div>
         </div>
        `)}
       </div>
