@@ -94,6 +94,9 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
+    
+    console.log(this.counter)
+    console.log(this.id,bill.id)
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
@@ -104,13 +107,15 @@ export default class {
       $('.dashboard-right-container div').html(DashboardFormUI(bill))
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter++
-    } else {
+    } 
+    else {
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `)
       $('.vertical-navbar').css({ height: '120vh' })
+      
       this.counter++
     }
     $('#icon-eye-d').click(this.handleClickIconEye)
@@ -139,6 +144,7 @@ export default class {
   }
 
   handleShowTickets(e, bills, index) {
+  
     if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.index === undefined || this.index !== index) this.index = index
     if (this.counter % 2 === 0) {
@@ -152,9 +158,11 @@ export default class {
         .html("")
       this.counter++
     }
-
+    //fix bug hunt dashboard
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      // $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`).off("click"); //remove prevouis event , then we add a event for open or close a bill 
+      $(`#open-bill${bill.id}`).on("click", e => { this.handleEditTicket(e, bill, bills)})
     })
 
     return bills
