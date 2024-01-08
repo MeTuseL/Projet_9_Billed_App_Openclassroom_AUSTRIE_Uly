@@ -22,7 +22,7 @@ export default () => {
       pathname,
       window.location.origin + pathname
     )
-    console.log(pathname, ROUTES_PATH)
+console.log(pathname, ROUTES_PATH)
     if (pathname === ROUTES_PATH['Login']) {
       rootDiv.innerHTML = ROUTES({ pathname })
       document.body.style.backgroundColor = "#0E5AE5"
