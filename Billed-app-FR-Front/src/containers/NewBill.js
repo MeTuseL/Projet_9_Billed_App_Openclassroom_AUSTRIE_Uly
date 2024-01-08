@@ -22,10 +22,27 @@ export default class NewBill {
     const fileName = filePath[filePath.length - 1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
+
     //check if the file extensions are correct
     const alertErrorFile = this.document.getElementById("alert-error-file");//error message
-    const fileExt = fileName.split(".").pop()
-    if (fileExt === "jpg" || fileExt === "jpeg" || fileExt === "png") {
+    const fileExt = fileName.split(".").pop();
+    const fileValidFormats = ["jpg", "jpeg", "png"];
+    this.isFormatValid = false;
+    const inputFile = this.document.querySelector(`input[data-testid="file"]`);
+    // Check format is .jpg, jpeg or png 
+    if (fileValidFormats.indexOf(fileExt) !== -1) {
+      this.isFormatValid = true;
+    }
+    if (this.isFormatValid !== true) {
+      inputFile.classList.add("is-invalid");
+      inputFile.classList.remove("blue-border");
+      inputFile.value = "";//remove file
+      const alertErrorFile = this.document.getElementById("alert-error-file");//error message
+      alertErrorFile.textContent = "Fichier non autorisé. Veuillez choisir des fichiers .png, .jpeg ou .jpg.";
+    }
+    else {
+      inputFile.classList.remove("is-invalid");
+      inputFile.classList.add("blue-border");
       alertErrorFile.textContent = "";//remove error message
       formData.append('file', file)
       formData.append('email', email)
@@ -45,11 +62,6 @@ export default class NewBill {
           this.fileName = fileName
         }).catch(error => console.error(error))
     }
-    else{
-      this.document.querySelector(`input[data-testid="file"]`).value = "";//remove file
-      const alertErrorFile = this.document.getElementById("alert-error-file");//error message
-      alertErrorFile.textContent = "Fichier non autorisé. Veuillez choisir des fichiers .png, .jpeg ou .jpg.";
-        }
   }
   handleSubmit = e => {
     e.preventDefault()
@@ -68,8 +80,9 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
-    this.updateBill(bill)
-    this.onNavigate(ROUTES_PATH['Bills'])
+    this.updateBill(bill);
+    this.onNavigate(ROUTES_PATH["Bills"]);
+
   }
 
   // not need to cover this function by tests
