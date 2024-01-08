@@ -29,7 +29,7 @@ export default class NewBill {
     const fileValidFormats = ["jpg", "jpeg", "png"];
     this.isFormatValid = false;
     const inputFile = this.document.querySelector(`input[data-testid="file"]`);
-    // Check format is .jpg, jpeg or png 
+    
     if (fileValidFormats.indexOf(fileExt) !== -1) {
       this.isFormatValid = true;
     }
@@ -80,7 +80,7 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
-    this.updateBill(bill);
+        this.updateBill(bill);
     this.onNavigate(ROUTES_PATH["Bills"]);
 
   }
