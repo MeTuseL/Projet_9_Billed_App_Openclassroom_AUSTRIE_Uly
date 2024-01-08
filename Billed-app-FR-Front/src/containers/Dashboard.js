@@ -83,7 +83,7 @@ export default class {
     const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
     //if the bill url is null
     const noFoundBillUrl = billUrl.split("/").pop()
-    if (noFoundBillUrl === "null") {
+    if (noFoundBillUrl === "null") {//add by default a message for no bill url found
       $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'>Fichier introuvable.</div>`)
       if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
     }
@@ -95,8 +95,6 @@ export default class {
 
   handleEditTicket(e, bill, bills) {
     
-    console.log(this.counter)
-    console.log(this.id,bill.id)
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {

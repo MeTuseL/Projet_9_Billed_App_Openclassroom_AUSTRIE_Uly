@@ -25,7 +25,7 @@ export default class {
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
     //if the bill url is null
     const noFoundBillUrl = billUrl.split("/").pop()
-    if (noFoundBillUrl === "null") {
+    if (noFoundBillUrl === "null") {//add by default a message for no bill url found
       $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container">Fichier introuvable.</div>`)
       $('#modaleFile').modal('show')
     }
